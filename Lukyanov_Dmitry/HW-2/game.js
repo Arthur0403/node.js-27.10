@@ -38,7 +38,7 @@ rl.on('line', (inputDigit) => {
   }
   
   
-  fs.writeFileSync('./log.txt', chalk.yellow(`--------------------\nВсего попыток - ${games} \n--Угадал: ${trueAnswer} раз. \n--Неугадал: ${falseAnswer} раз. \n--ИТОГ-- ${trueAnswer}:${falseAnswer} \n--------------------`  ));
+  fs.writeFileSync('./log.txt', chalk.yellow(`--------------------\nВсего попыток - ${games} \n--Угадал: ${trueAnswer} раз. \n--Неугадал: ${falseAnswer} раз. \n--ИТОГ-- ${trueAnswer}:${falseAnswer} \n--------------------`, "utf8" ));
   var fileContent = fs.readFileSync("log.txt", "utf8");
   console.log(fileContent);
   games++;
