@@ -7,7 +7,7 @@ let games = 1;
 let trueAnswer = 0;
 let falseAnswer = 0;
 
-fs.writeFileSync('./log.txt', `\nИгра ${games}` );
+fs.writeFileSync('./log.txt', `\nИгра ${games}`,"utf8" );
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
