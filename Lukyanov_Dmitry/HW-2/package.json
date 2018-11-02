@@ -1,16 +1,18 @@
 {
-  "name": "y",
+  "name": "hw-2",
   "version": "1.0.0",
-  "description": "",
   "main": "game.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "IPLUX <info@iplux.ru> (iplux.ru)",
   "license": "ISC",
   "dependencies": {
     "minimist": "^1.2.0",
     "random": "^2.0.12",
     "readline": "^1.3.0"
-  }
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "description": ""
 }
