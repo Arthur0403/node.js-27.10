@@ -22,8 +22,11 @@ rl.on('line', (inputDigit) => {
   console.log ('Компьютер загадал:' ,rnd);
 
 
-  if (inputDigit > 2 || inputDigit < 1) {
-    console.log(chalk.white.bgRed(' Нужно выбрать число 1 или 2 '));
+  if (inputDigit > 2) {
+    console.log(chalk.white.bgRed(' Ты выбрал число больше 2 ! Нужно выбрать число 1 или 2 '));
+
+  } else if (inputDigit < 1) {
+    console.log(chalk.white.bgRed(' Ты выбрал число меньше 1 ! Нужно выбрать число 1 или 2 '));
     
   } else if (isNaN(inputDigit)) {
     console.log(chalk.white.bgRed(' Ты выбрал не число! Нужно выбрать число 1 или 2 '));
