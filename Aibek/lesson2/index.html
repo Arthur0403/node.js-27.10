@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+			var a
+			var b
+			var wins=0
+			var losses=0
+			var number=0
+			while (true){
+				a = Math.floor(Math.random()*2)+1;
+				console.log(a);
+				b = prompt('Введите число от 1 до 2','');
+				console.log(b)
+				if (a==b){
+					console.log('Match!')
+					wins++
+				}
+				else if (b==3){
+					break
+				}
+				else {
+					console.log('Unlucky :(')
+					losses++
+				}
+			}
+			number++
+			console.log(wins)
+			console.log(losses)
+			console.log(number)
+	</script>
+</body>
+</html>
