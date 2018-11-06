@@ -39,9 +39,5 @@ rl.on('line', (inputDigit) => {
   var fileContent = fs.readFileSync("log.txt", "utf8");
   console.log(fileContent);
   games++;
-<<<<<<< HEAD
-  console.log('\nПродолжим \nВыбери число '+ (chalk.black.bgYellow (' 1 ')) + ' или ' + (chalk.black.bgYellow (' 2 ')));
-=======
-  console.log('\nПродолжим \nВыбери число ' + (chalk.black.bgYellow(' 1 ')) + ' или ' + (chalk.black.bgYellow(' 2 ')));
->>>>>>> 4bf552cbf6119ec56432a31ba0f7ca643ccb5d98
+  console.log('\nПродолжим \nВыбери число ' + (chalk.black.bgYellow (' 1 ')) + ' или ' + (chalk.black.bgYellow (' 2 ')));
 });
