@@ -9,5 +9,7 @@ request('https://news.yandex.ru/', (err, response, body) => {
    for (i = 0; i < 10; i++) {
  console.log('-',  $('.story__title').eq(i).text() + '.');
    }
+  } else {
+    console.log (chalk.white.bgRed(' Нет ответа от сервера! '));
   }
 });
