@@ -35,7 +35,12 @@ rl.on('line', (inputDigit) => {
     falseAnswer++;
   }
 
-  fs.writeFileSync('./log.txt', chalk.yellow(`--------------------\nВсего попыток - ${games} \n--Угадал: ${trueAnswer} раз. \n--Неугадал: ${falseAnswer} раз. \n--ИТОГ-- ${trueAnswer}:${falseAnswer} \n--------------------`));
+  fs.writeFileSync('./log.txt', chalk.yellow(`--------------------
+  \nВсего попыток - ${games}
+  \n--Угадал: ${trueAnswer} раз. \n--Неугадал: ${falseAnswer} раз.
+  \n--ИТОГ-- ${trueAnswer}:${falseAnswer}
+  \n--------------------`));
+  
   var fileContent = fs.readFileSync("log.txt", "utf8");
   console.log(fileContent);
   games++;
