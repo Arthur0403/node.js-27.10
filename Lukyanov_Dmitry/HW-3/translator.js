@@ -8,8 +8,12 @@ const rl = readline.createInterface({
 });
 
 rl.question('Введите текст (RU):', (textIn) =>{
+    if (texIn === integer) {
+        consiole.log('Это не текст');
+    } else {
     textTrans(textIn);
     rl.close(); 
+    }
 });
 
 const textTrans = (textInput) => {
@@ -17,7 +21,8 @@ const textTrans = (textInput) => {
    url = 'https://translate.yandex.net/api/v1.5/tr.json/translate';
    lang = 'ru-en';
 
-  request(url, {form: {key: key, text: textInput, lang: lang}},
+  request(url, {form: {key: key, text: textInput, lang: lang}
+},
   (err, res, body) => {
     if(!err && res.statusCode === 200) {
         console.log(chalk.white.bgRed (` Перевод(EN):${JSON.parse(body).text[0]} `));
