@@ -47,4 +47,3 @@ rl.on('line', (inputDigit) => {
   games++;
   console.log('\nПродолжим \nВыбери число '+ (chalk.black.bgYellow (' 1 ')) + ' или ' + (chalk.black.bgYellow (' 2 ')));
 });
-
