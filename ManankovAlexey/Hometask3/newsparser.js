@@ -1,6 +1,7 @@
 const request = require(`request`);
 const cheerio = require(`cheerio`);
 
+console.log(`Задание №1`);
 request(`https://news.yandex.ru/Tyumen/`, (err, response, body) => {
     if (!err && response.statusCode == 200){
         const $ = cheerio.load(body);
