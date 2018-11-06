@@ -8,13 +8,10 @@ const rl = readline.createInterface({
 });
 
 rl.question('Введите текст (RU):', (textIn) =>{
-    if (texIn === integer) {
-        consiole.log('Это не текст');
-    } else {
     textTrans(textIn);
     rl.close(); 
     }
-});
+);
 
 const textTrans = (textInput) => {
    key = 'trnsl.1.1.20181106T083457Z.87ac33d9ca391bbb.610e70224699c3872400711cb6f4dc812ca6ebe1';
