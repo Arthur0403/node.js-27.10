@@ -1,5 +1,4 @@
  // Использовал пакет ansi повтор лекции
- 
  const ansi = require ('ansi');
  const cursor = ansi (process.stdout);
  cursor.beep();
@@ -10,7 +9,3 @@
  cursor.blue();
  cursor.write('\nHello World!\n');
  cursor.white();
-
-
-
-

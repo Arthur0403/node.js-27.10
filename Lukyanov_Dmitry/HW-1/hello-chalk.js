@@ -19,12 +19,3 @@ console.log(chalk`
   {green.bold A = 10}, {red.bold B = 15}
   Сумма чисел {bold ${a} + ${b}} = {bgRed  ${calculateFeet(a)} }
 `);
-
-
-
-
-
-
-
-
-

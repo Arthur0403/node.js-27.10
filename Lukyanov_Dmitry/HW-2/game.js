@@ -8,7 +8,10 @@ let trueAnswer = 0;
 let falseAnswer = 0;
 
 fs.writeFileSync('./log.txt', `\nИгра ${games}`, "utf8");
-const rl = readline.createInterface({input: process.stdin, output: process.stdout})
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+})
 
 console.log('\nВыбери число ' + (chalk.black.bgYellow(' 1 ')) + ' или ' + (chalk.black.bgYellow.bold(' 2 ')));
 
@@ -35,7 +38,14 @@ rl.on('line', (inputDigit) => {
     falseAnswer++;
   }
 
-  fs.writeFileSync('./log.txt', chalk.yellow(`--------------------\nВсего попыток - ${games} \n--Угадал: ${trueAnswer} раз. \n--Неугадал: ${falseAnswer} раз. \n--ИТОГ-- ${trueAnswer}:${falseAnswer} \n--------------------`));
+  fs.writeFileSync('./log.txt', chalk.yellow
+  (`--------------------
+  Всего попыток - ${games}
+  --Угадал: ${trueAnswer} раз.
+  --Неугадал: ${falseAnswer} раз.
+  --ИТОГ-- ${trueAnswer}:${falseAnswer}
+  --------------------`));
+
   var fileContent = fs.readFileSync("log.txt", "utf8");
   console.log(fileContent);
   games++;
