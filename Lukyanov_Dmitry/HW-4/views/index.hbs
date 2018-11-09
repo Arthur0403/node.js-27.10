@@ -1,0 +1,22 @@
+<div>
+ <form action="http://localhost:8500/allnews" method="post">
+  <p><b>Выберите раздел новостей от Yandex</b></p>
+  <input type="radio" name="section" value="index">Главное<Br>
+  <input type="radio" name="section" value="world">В мире<Br>
+  <input type="radio" name="section" value="business">Экономика<Br>
+  <input type="radio" name="section" value="society">Общество<Br>
+  <input type="radio" name="section" value="politics">Политика</p>
+  <p><b>Сколько новостей отображать?</b></p>
+<input type="radio" name="amount" value="10">10<Br>
+<input type="radio" name="amount" value="15">15<Br>
+<input type="radio" name="amount" value="20">20<Br>
+<input type="radio" name="amount" value="25">25</p>
+  <p><input type="submit" value="Запрос"></p>
+ </form>
+ <div>
+ {{#each allNews}}
+ <div>{{this}}</div>
+ {{/each}}
+ </div>
+</div><body>  
+</body>   
