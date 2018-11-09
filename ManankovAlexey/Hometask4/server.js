@@ -5,7 +5,6 @@ const bodyParser = require(`body-parser`);
 const cookieParser = require(`cookie-parser`);
 const consolidate = require(`consolidate`);
 const path = require(`path`);
-const fs = require(`fs`);
 
 const app = express();
 const port = 8080;
