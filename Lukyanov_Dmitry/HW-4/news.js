@@ -1,7 +1,7 @@
-const request = require("request");
-const cheerio = require("cheerio");
-const express = require("express");
-const temph = require("consolidate");
+const request = require('request');
+const cheerio = require('cheerio');
+const express = require('express');
+const temph = require('consolidate');
 const bodyParser = require("body-parser");
 const path = require('path');
 
@@ -15,34 +15,23 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.get('/', function (req, res) {
   res.render('index', {allNews: []});
 });
-
-app.post('/allnews', function (req, res) {
+app.post('/allnews', async (req, res) => {
   app.use(bodyParser.urlencoded({extended: false}));
   //
   let prom = new Promise((out) => {
-    let url = 'https://news.yandex.ru/';
-    let allNews = [];
+    const url = 'https://news.yandex.ru/';
+    const allNews = [];
     let choice
-    if (req.body.amount == null) {
+
+    if (!req.body.amount){
       choice = 5
     } else {
       choice = req.body.amount
     };
     //Формирую ссылку
-    if (req.body.answer === 'index') {
-      link = url + 'index.html';
-    } else if (req.body.section === 'business') {
-      link = url + 'business.html';
-    } else if (req.body.section === 'society') {
-      link = url + 'society.html';
-    } else if (req.body.section === 'politics') {
-      link = url + 'politics.html';
-    } else if (req.body.section === 'world') {
-      link = url + 'world.html';
-    } else if (req.body.section === null) {
-      link = url + 'index.html';
-    };
-    //Запрос
+     const link = `${url}${req.body.section || 'index'}.html`;
+    
+     //Запрос
     request(link, (error, response, body) => {
       if (!error && response.statusCode == 200) {
         let $ = cheerio.load(body);
@@ -57,6 +46,7 @@ app.post('/allnews', function (req, res) {
     });
 
   });
+
   prom.then((result) => {
     res.render('index', {allNews: result});
   })
