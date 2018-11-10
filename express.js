@@ -2,6 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const consolidate = require('consolidate');
 const path = require('path');
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/test');
+
+const Animal = require('./models/animal');
 
 const app = express();
 
@@ -25,6 +30,25 @@ app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   res.send({ message: 'Hello world' });
+});
+
+app.get('/animals', async (req, res) => {
+  const animals = await Animal.find();
+
+  res.json(animals);
+});
+
+app.get('/animals/:id', async (req, res) => {
+  const animal = await Animal.findById(req.params.id);
+
+  res.json(animal);
+});
+
+app.post('/animals', async (req, res) => {
+  let animal = new Animal(req.body);
+  animal = await animal.save();
+
+  res.json(animal);
 });
 
 app.get('/users', (req, res) => {
