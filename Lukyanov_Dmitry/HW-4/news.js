@@ -21,7 +21,7 @@ app.post('/allnews', async (req, res) => {
   let prom = new Promise((out) => {
     const url = 'https://news.yandex.ru/';
     const allNews = [];
-    let choice
+    let choice;
 
     if (!req.body.amount){
       choice = 5
