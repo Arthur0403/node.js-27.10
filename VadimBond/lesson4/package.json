@@ -1,18 +1,19 @@
 {
-  "name": "VadimBond",
+  "name": "lesson4",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node select",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "VadimBond",
   "license": "ISC",
   "devDependencies": {
-    "cheerio": "^1.0.0-rc.2",
-    "colors": "^1.3.2",
-    "minimist": "^1.2.0",
-    "request": "^2.88.0"
+    "body-parser": "^1.18.3",
+    "consolidate": "^0.15.1",
+    "express": "^4.16.4",
+    "hbs": "^4.0.1"
   }
 }

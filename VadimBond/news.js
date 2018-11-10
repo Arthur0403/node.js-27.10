@@ -11,10 +11,10 @@ request('http://www.norway.mid.ru/ru/index.html', (err, res, body) => {
 		const $ = cheerio.load(body);
 
 		$('.frontpagetable tr').each( function(i, el) {
-			let th = $(this).find('th').text();
-			let a = $(this).find('a').text();
+			const th = $(this).find('th').text();
+			const a = $(this).find('a').text();
 
-			console.log(th + ' -- ' + a);
+			console.log(`${th} -- ${a}`);
 		});
 	}
 });
