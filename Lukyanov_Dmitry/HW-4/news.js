@@ -4,6 +4,9 @@ const express = require('express');
 const temph = require('consolidate');
 const bodyParser = require("body-parser");
 const path = require('path');
+const fs = require('fs');
+const handlebars = require('handlebars');
+
 
 const app = express();
 app.use(express.static(path.resolve(__dirname, 'public')));
@@ -15,12 +18,12 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.get('/', function (req, res) {
   res.render('index', {allNews: []});
 });
-app.post('/allnews', async (req, res) => {
+app.post('/allnews', async(req, res) => {
   app.use(bodyParser.urlencoded({extended: false}));
   //
-  let prom = new Promise((out) => {
+  let outAll = new Promise((out) => {
     const url = 'https://news.yandex.ru/';
-    const allNews = [];
+    let allNews = [];
     let choice;
 
     if (!req.body.amount){
@@ -47,7 +50,7 @@ app.post('/allnews', async (req, res) => {
 
   });
 
-  prom.then((result) => {
+  outAll.then((result) => {
     res.render('index', {allNews: result});
   })
 });
