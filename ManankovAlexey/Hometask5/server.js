@@ -12,7 +12,6 @@ app.engine(`hbs`, consolidate.handlebars);
 app.set(`view engine`, `hbs`);
 app.set(`views`, path.resolve(__dirname, `views`));
 
-
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(
     path.resolve(__dirname, `public`)
