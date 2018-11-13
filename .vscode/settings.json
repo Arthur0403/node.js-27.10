@@ -1,0 +1,8 @@
+{
+    "sync.autoDownload": true,
+    "sync.autoUpload": true,
+    "sync.quietSync": true,
+    "editor.fontSize": 18,
+    "terminal.integrated.fontSize": 16,
+    "markdown.preview.fontSize": 18
+}

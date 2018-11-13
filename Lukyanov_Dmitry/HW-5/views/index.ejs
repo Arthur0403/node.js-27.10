@@ -1,0 +1,37 @@
+<html lang="ru">
+
+<head>
+    <% include style %>
+</head>
+
+<body>
+    <main>
+        <div class="container">
+            <row>
+                <h1 class="text-center">Список дел</h1>
+                <form class="col-6 mx-auto" action="/add-todo" method="POST">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="item" placeholder="Добавить дело"><span>
+                            <button type="submit" class="btn btn-primary">Добавить</button>
+                        </span>
+                    </div>
+                </form>
+            </row>
+            <div class="row">
+                <ol class="col-6 mx-auto">
+                    <% for(var i = 0; i < allList.length; i++) { %>
+                    <li>
+                        <%= allList[i].name %>
+                    </li>
+                    <% } 
+                        %>
+
+                </ol>
+            </div>
+            </form>
+        </div>
+        </div>
+    </main>
+</body>
+
+</html>
