@@ -48,6 +48,16 @@ app.post('/del-todo', (req, res) => {
   });
 
 
+  app.post('/edit-todo', (req, res) => {
+    const id = req.body.edit;
+     todo.findByIdAndUpdate(id, {new: true}, (err) => {
+        if (err) console.log(err);
+        });
+              console.log(id);
+             res.redirect('/');
+  });
+
+
 
 app.listen(3000, function () {
     console.log('Server started port 3000');
