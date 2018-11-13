@@ -12,9 +12,7 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(path.join(__dirname, 'models')));
 
-app.use(bodyParse.urlencoded({
-    extended: true
-}));
+app.use(bodyParse.urlencoded({extended: true}));
 
 
 app.get('/', function (req, res) {
@@ -38,6 +36,17 @@ app.post('/add-todo', (req, res) => {
     });
     res.redirect('/');
 });
+
+
+app.post('/del-todo', (req, res) => {
+    const id = req.body.id;
+    todo.findByIdAndRemove(id, (err) => {
+        console.log(err);    
+    });
+    console.log(id)
+     res.redirect('/');
+  });
+
 
 
 app.listen(3000, function () {

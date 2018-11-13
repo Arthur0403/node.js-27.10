@@ -21,7 +21,10 @@
                 <ol class="col-6 mx-auto">
                     <% for(var i = 0; i < allList.length; i++) { %>
                     <li>
+                    <form action="/del-todo" method="POST">
                         <%= allList[i].name %>
+                         <button name="id" value= "<%= allList[i].id %>" type="submit">-</button>
+                        </form>
                     </li>
                     <% } 
                         %>
