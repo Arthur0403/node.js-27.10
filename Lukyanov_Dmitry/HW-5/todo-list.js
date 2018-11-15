@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParse = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
-const Todo = require('./models/todo');
+const todo = require('./models/todo');
 
 const app = express();
 mongoose.connect('mongodb://localhost/todo');
@@ -30,7 +30,7 @@ app.get('/', function (req, res) {
 
 
 app.post('/add-todo', (req, res) => {
-    const addTodo = new Todo({
+    const addTodo = new todo({
     name: req.body.item,
     });
     todo.create(addTodo, (err, todo) => {
