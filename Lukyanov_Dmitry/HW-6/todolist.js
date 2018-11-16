@@ -60,11 +60,7 @@ app.get('/',
     res.render('home', { user: req.user });
   });
 
-  // app.get('/profile',
-  // require('connect-ensure-login').ensureLoggedIn(),
-  // function(req, res){
-  //   res.render('profile', { user: req.user });
-  // });
+ 
 
 
 
@@ -99,6 +95,14 @@ app.post('/login',
   function(req, res){
     req.logout();
     res.redirect('/');
+  });
+
+
+
+  app.get('/profile',
+  require('connect-ensure-login').ensureLoggedIn(),
+  function(req, res){
+    res.render('profile', { user: req.user });
   });
 
 
