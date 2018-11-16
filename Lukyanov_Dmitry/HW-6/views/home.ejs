@@ -9,12 +9,17 @@
         <div class="container">
             <row>
                 <div class="form-inline">
-                    <% if (!user) { %>
-                    <h3 class="text-left">Пройдите авторизацию<a href="/login"> Вход</a></h3>
+                    <form class="form-inline" action="/login" method="GET">
+                        <% if (!user) { %>
+                        <h4 class="text-left">Пройдите авторизацию</h4>
+                        <button type="submit" class="btn btn-primary mb-2">Вход</button>
+                    </form>
                     <% } else { %>
-                    <h3>Привет,
-                        <%= user.username %>. Профиль пользователя 
-                        <a href="/profile">profile</a>.</h3>
+                    <h4>Привет,
+                        <%= user.username %>. </h4>
+                    <form class="form-inline" action="/profile" method="GET">
+                        <button type="submit" class="btn btn-primary mb-2">Профиль</button>
+                    </form>
                     <% } %>
                 </div>
             </row>
