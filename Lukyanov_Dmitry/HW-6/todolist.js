@@ -60,10 +60,6 @@ app.get('/',
     res.render('home', { user: req.user });
   });
 
- 
-
-
-
 
 app.get('/list', function (req, res) {
   todo.find({}, function (err, todoList) {
@@ -91,6 +87,13 @@ app.post('/login',
     
   });
 
+  app.get('/profile',
+  require('connect-ensure-login').ensureLoggedIn(),
+  function(req, res){
+    res.render('profile', { user: req.user });
+  });
+
+
   app.get('/logout',
   function(req, res){
     req.logout();
@@ -99,12 +102,7 @@ app.post('/login',
 
 
 
-  app.get('/profile',
-  require('connect-ensure-login').ensureLoggedIn(),
-  function(req, res){
-    res.render('profile', { user: req.user });
-  });
-
+ 
 
 
 app.post('/add-todo', (req, res) => {
