@@ -1,5 +1,5 @@
 let records = [
- { id: 1, username: 'admin', password: 'admin', displayName: 'ld', emails: [ { value: 'ld@dzertv.ru' } ] }
+ { id: 1, username: 'admin', password: 'admin', displayName: 'Дмитрий', emails: [ { value: 'ld@dzertv.ru' } ] }
 ];
 
 exports.findById = function(id, cb) {

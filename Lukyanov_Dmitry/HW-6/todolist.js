@@ -70,7 +70,6 @@ app.get('/',
     });
   });
 
-
 app.get('/list', function (req, res) {
   todo.find({}, function (err, todoList) {
     if (err) {
