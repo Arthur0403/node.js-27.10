@@ -1,0 +1,25 @@
+<html lang="ru">
+
+<head>
+    <% include style %>
+</head>
+
+<body>
+    <main>
+        <div class="container">
+            <row>
+                <% if (!user) { %>
+                <h3 class="text-left">Пройдите авторизацию<a href="/login"> Вход</a></h3>
+                <% } else { %>
+                <h3>Привет,
+                    <%= user.username %>. Профиль пользователя <a href="/list">profile</a>.</h3>
+                <% } %>
+
+            </row>
+
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>
