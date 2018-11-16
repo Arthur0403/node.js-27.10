@@ -3,7 +3,6 @@ const passport = require('passport');
 const bodyParse = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
-
 const Strategy = require('passport-local').Strategy;
 var db = require('./db');
 var todo = require('./models/todo');
@@ -144,7 +143,6 @@ app.post('/edit-todo', (req, res) => {
   });
   res.redirect('/list');
 });
-
 
 app.listen(3000, function () {
   console.log('Server started port 3000');
