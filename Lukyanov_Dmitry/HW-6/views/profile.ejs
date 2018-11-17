@@ -1,0 +1,36 @@
+<html lang="ru">
+
+<head>
+    <% include style %>
+</head>
+
+<body>
+    <main>
+
+        <div class="container">
+            <row>
+                <h3 class="text-left">Профиль пользователя</h3>
+                <h5>
+                    Логин:
+                    <%= user.username %><br />
+                    Имя:
+                    <%= user.displayName %><br />
+                    <% if (user.emails) { %>
+                    Email:
+                    <%= user.emails[0].value %><br />
+                    <% } %>
+                </h5>
+
+                <form class="form-inline" action="/logout" method="GET">
+                    <button type="submit" class="btn btn-primary mb-2">Выход</button>
+                </form>
+                <form class="form-inline" action="/list" method="GET">
+                    <button type="submit" class="btn btn-primary mb-2">Вернуться к списку</button>
+                </form>
+            </row>
+        </div>
+
+    </main>
+</body>
+
+</html>

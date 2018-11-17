@@ -17,9 +17,11 @@ app.use(bodyParse.urlencoded({extended: true}));
 
 app.get('/', function (req, res) {
     todo.find({}, function (err, todoList) {
-        if (err) console.log(err);
+        if (err){
+            console.log(err);
+        }
         else {
-            res.render('index.ejs', {
+            res.render('index', {
                 allList: todoList
             });
         }
@@ -29,10 +31,10 @@ app.get('/', function (req, res) {
 
 app.post('/add-todo', (req, res) => {
     const addTodo = new todo({
-        name: req.body.item,
+    name: req.body.item,
     });
     todo.create(addTodo, (err, todo) => {
-        if (err) console.log(err);
+    if (err) console.log(err);
     });
     res.redirect('/');
 });
@@ -41,20 +43,18 @@ app.post('/add-todo', (req, res) => {
 app.post('/del-todo', (req, res) => {
     const id = req.body.id;
     todo.findByIdAndRemove(id, (err) => {
-        console.log(err);    
+    console.log(err);    
     });
-    console.log(id)
      res.redirect('/');
   });
 
 
-  app.post('/edit-todo', (req, res) => {
+app.post('/edit-todo', (req, res) => {
     const id = req.body.edit;
      todo.findByIdAndUpdate(id, {new: true}, (err) => {
         if (err) console.log(err);
         });
-              console.log(id);
-             res.redirect('/');
+    res.redirect('/');
   });
 
 
