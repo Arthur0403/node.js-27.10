@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const Strategy = require('passport-local').Strategy;
 var db = require('./db');
-var todo = require('./models/todo');
+const Todo = require('./models/todo');
 
 
 passport.use(new Strategy(
