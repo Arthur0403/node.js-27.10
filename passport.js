@@ -67,6 +67,6 @@ app.get('/user/settings', (req, res) => {
 app.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/auth');
-})
+});
 
 app.listen(8888);
