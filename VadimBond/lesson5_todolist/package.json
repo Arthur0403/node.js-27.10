@@ -1,11 +1,9 @@
 {
   "name": "lesson5_todolist",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node todo",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +13,8 @@
     "consolidate": "^0.15.1",
     "express": "^4.16.4",
     "hbs": "^4.0.1",
-    "mongoose": "^5.3.12"
-  }
+    "mongodb": "^3.1.9"
+  },
+  "dependencies": {},
+  "description": ""
 }
