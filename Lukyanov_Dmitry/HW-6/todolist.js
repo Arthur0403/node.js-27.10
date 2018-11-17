@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const Strategy = require('passport-local').Strategy;
 var db = require('./db');
-const Todo = require('./models/todo');
+const todo = require('./models/todo');
 
 
 passport.use(new Strategy(
@@ -70,7 +70,7 @@ app.get('/',
   });
 
 app.get('/list', function (req, res) {
-  todo.find({}, function (err, todoList) {
+  odo.find({}, function (err, todoList) {
     if (err) {
       console.log(err);
     } else {

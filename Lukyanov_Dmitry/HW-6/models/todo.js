@@ -6,5 +6,5 @@ const todoSchema = new mongoose.Schema({
   edit: Boolean,
 });
 
-module.exports = mongoose.model('Todo', todoSchema);
+module.exports = mongoose.model('todo', todoSchema);
 
