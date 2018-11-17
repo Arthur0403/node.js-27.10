@@ -134,15 +134,13 @@ app.post('/del-todo', (req, res) => {
   res.redirect('/list');
 });
 
-app.post('/edit-todo', (req, res) => {
-  const id = req.body.edit;
-  todo.findByIdAndUpdate(id, {
-    new: true
-  }, (err) => {
-    if (err) console.log(err);
-  });
-  res.redirect('/list');
-});
+app.post('/edit-todo',(req, res) => {
+    const rec = todo.findByIdAndUpdate(req.body.edit, {edit: true} , () => {
+   
+})
+res.redirect('/list');
+})
+
 
 app.listen(3000, function () {
   console.log('Server started port 3000');

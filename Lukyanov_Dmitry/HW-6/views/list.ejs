@@ -29,9 +29,11 @@
                             <%= allList[i].name %>
                             <button name="id" value="<%= allList[i].id %>" type="submit" class="btn btn-primary mb-2">-</button>
                         </form>
-
+                        <form action="/edit-todo" method="POST">
+                                <button type="submit" class="btn btn-primary mb-2" value=" <%= allList[i].id %>" name="edit">Выполненно</button>
+                            </form>
                     </li>
-                    <% } 
+                    <% }
                         %>
                 </ol>
             </div>
