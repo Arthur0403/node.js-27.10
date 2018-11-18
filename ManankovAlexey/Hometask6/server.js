@@ -4,9 +4,10 @@ const session = require('cookie-session');
 const bodyParser = require('body-parser');
 const consolidate = require('consolidate');
 const path = require('path');
+const crypto = require('crypto');
 const connection = require('./connector.js');
-const todoList = require('./models/todolist');
-const userList = require('./models/users');
+const Task = require('./models/task');
+const User = require('./models/user');
 
 const app = express();
 const port = 8080;
@@ -15,59 +16,81 @@ app.engine('hbs', consolidate.handlebars);
 app.set('view engine', 'hbs');
 app.set('views', path.resolve(__dirname, 'views'));
 
-
 app.use(cookieParser());
 app.use(session({ keys: ['secret'] }));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(
-    path.resolve(__dirname, 'public')
+    path.resolve(__dirname, 'public'),
 ))
+
+function chiferWork(str, salt, type){
+    if (type === 'encode'){
+        let key = crypto.createCipher('aes192', salt);
+        let chifStr = key.update(str, 'utf8', 'hex');
+        chifStr += key.final('hex');
+        return chifStr;
+    } else if (type === 'decode'){
+        let key = crypto.createDecipher('aec192', salt);
+        let chifStr = key.update(str, 'hex', 'utf8');
+        chifStr += key.final('utf8');
+        return chifStr;
+    }
+}
 
 app.get('/', (req, res) => {
     res.redirect('/auth');
 })
 
 app.get('/auth', (req, res) => {
-    res.render('auth');
+    if(req.cookies.session){
+        res.redirect('/main')
+    } else {
+        res.render('auth');
+    }
 }) 
 
 app.get('/main', async (req, res) => {
-    const tasks = await todoList.find();
+    const tasks = await Task.find();
     res.render('index', {tasks});
 })
 
 app.post('/main', async (req, res) => {
-    let listitem = new todoList({task: req.body.newTask, completed: false});
+    let listitem = new Task({task: req.body.newTask});
     listitem = await listitem.save();
-    const tasks = await todoList.find();
+    const tasks = await Task.find();
     res.render('index', {tasks});
 })
 
-app.post('/delete', async(req, res) => {
-    await todoList.findByIdAndRemove(req.body.delete, () => {
+app.post('/delete', async (req, res) => {
+    await Task.findByIdAndRemove(req.body.delete, () => {
         console.log(`Запись ${req.body.delete} была удалена`);
     })
-    const tasks = await todoList.find();
+    const tasks = await Task.find();
     res.render('index', {tasks});
 })
 
-app.post('/complete', async(req, res) => {
-    await todoList.findByIdAndUpdate(req.body.complete, {completed: true} , () => {
+app.post('/complete', async (req, res) => {
+    await Task.findByIdAndUpdate(req.body.complete, {completed: true} , () => {
         console.log(`Запись ${req.body.complete} была модифицирована`);
     })
-    const tasks = await todoList.find();
+    const tasks = await Task.find();
     res.render('index', {tasks});
 })
 
 app.post('/auth', async (req, res) => {
-    const users = await userList.find();
-    if (req.body.login === users.name && req.body.password === users.password) {
+    const user = await User.findOne({name: req.body.login});
+    if (req.body.login === user.name && chiferWork(req.body.password,'salt','encode') === user.password) {
         if (req.body.memo === 'checked'){
+            req.sessionOptions.maxAge = 24*60*60*1000;
+            req.session.username = 'admin';
+        } else {
+            req.sessionOptions.maxAge = 15*60*1000;
             req.session.username = 'admin';
         }
         res.redirect('/main');
+    } else {
+        res.redirect('/auth');
     }
-    res.redirect('/auth');
 })
 
 app.listen(port, () => {
