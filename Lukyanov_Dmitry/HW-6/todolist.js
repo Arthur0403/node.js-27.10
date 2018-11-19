@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const Strategy = require('passport-local').Strategy;
 var db = require('./db');
-const todo = require('./models/todo');
+const Todo = require('./models/todo');
 
 
 passport.use(new Strategy(
@@ -70,7 +70,7 @@ app.get('/',
   });
 
 app.get('/list', function (req, res) {
-  odo.find({}, function (err, todoList) {
+  Todo.find({}, function (err, todoList) {
     if (err) {
       console.log(err);
     } else {
@@ -120,7 +120,7 @@ app.post('/add-todo', (req, res) => {
   const addTodo = new todo({
     name: req.body.item,
   });
-  todo.create(addTodo, (err, todo) => {
+  Todo.create(addTodo, (err, todo) => {
     if (err) console.log(err);
   });
   res.redirect('/list');
@@ -128,14 +128,14 @@ app.post('/add-todo', (req, res) => {
 
 app.post('/del-todo', (req, res) => {
   const id = req.body.id;
-  todo.findByIdAndRemove(id, (err) => {
+  Todo.findByIdAndRemove(id, (err) => {
     console.log(err);
   });
   res.redirect('/list');
 });
 
 app.post('/edit-todo',(req, res) => {
-    const rec = todo.findByIdAndUpdate(req.body.edit, {edit: true} , () => {
+    const rec = Todo.findByIdAndUpdate(req.body.edit, {edit: true} , () => {
    
 })
 res.redirect('/list');
