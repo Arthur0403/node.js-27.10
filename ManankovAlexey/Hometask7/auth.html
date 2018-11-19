@@ -12,17 +12,17 @@
         <form action="/auth" method="POST">
             <div class="form-group">
                 <label for="exampleInputLogin">Логин:</label>
-                <input type="text" class="form-control" id="exampleInputLogin" placeholder="Введите ваш логин" name="login">
+                <input type="text" class="form-control" id="username" placeholder="Введите ваш логин" name="login">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Пароль:</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Введите ваш пароль" name="password">
+                <input type="password" class="form-control" id="password" placeholder="Введите ваш пароль" name="password">
             </div>
             <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1" name="memo" value="checked">
                 <label class="form-check-label" for="exampleCheck1">Запомнить меня</label>
             </div>
-            <button type="submit" class="btn btn-primary">Войти</button>
+            <button type="button" class="btn btn-primary" id="login">Войти</button>
         </form>
     </div>
     <script src="./public/js/script.js"></script>

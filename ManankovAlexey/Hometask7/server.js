@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
 
 app.post('/auth', async (req, res) => {
     const {username, password} = req.body;
-    const user = await user.
+    const user = await User.findOne({name: req.body.login})
 })
 
 // app.get(`/`, async (req, res) => {
