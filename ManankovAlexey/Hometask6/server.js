@@ -19,14 +19,16 @@ app.set('views', path.resolve(__dirname, 'views'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(session({ keys: ['secret'] }), (req, res, next) => {
-    if (req.body.memo === 'checked'){
+    if (req.body && req.body.memo === 'checked'){
         req.sessionOptions.maxAge = 24*60*60*1000;
-        console.log(req.sessionOptions.maxAge)
+        // console.log(req.sessionOptions.maxAge)
         req.session.username = 'admin';
+        next();
     } else {
         req.sessionOptions.maxAge = 15*60*1000;
-        console.log(req.sessionOptions.maxAge)
+        // console.log(req.sessionOptions.maxAge)
         req.session.username = 'admin';
+        next();
     }
 });
 app.use(express.static(
@@ -60,8 +62,8 @@ app.get('/auth', (req, res) => {
 }) 
 
 app.get('/main', async (req, res) => {
-    console.log(req.session)
-    console.log(req.sessionOptions.maxAge)
+    // console.log(req.session)
+    // console.log(req.sessionOptions.maxAge)
     const tasks = await Task.find();
     res.render('index', {tasks});
 })
