@@ -2,6 +2,7 @@ const express = require(`express`);
 const bodyParser = require(`body-parser`);
 const consolidate = require(`consolidate`);
 const path = require(`path`);
+const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const fs = require('fs');
@@ -19,6 +20,20 @@ app.use(cors());
 app.use(express.static(
     path.resolve(__dirname, `public`)
 ))
+
+function chiferWork(str, salt, type){
+    if (type === 'encode'){
+        let key = crypto.createCipher('aes192', salt);
+        let chifStr = key.update(str, 'utf8', 'hex');
+        chifStr += key.final('hex');
+        return chifStr;
+    } else if (type === 'decode'){
+        let key = crypto.createDecipher('aec192', salt);
+        let chifStr = key.update(str, 'hex', 'utf8');
+        chifStr += key.final('utf8');
+        return chifStr;
+    }
+}
 
 app.get('/', (req, res) => {
     fs.readFile('./auth.html', (err, data) => {
