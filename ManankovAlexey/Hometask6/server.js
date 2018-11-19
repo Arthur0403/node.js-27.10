@@ -17,8 +17,18 @@ app.set('view engine', 'hbs');
 app.set('views', path.resolve(__dirname, 'views'));
 
 app.use(cookieParser());
-app.use(session({ keys: ['secret'] }));
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(session({ keys: ['secret'] }), (req, res, next) => {
+    if (req.body.memo === 'checked'){
+        req.sessionOptions.maxAge = 24*60*60*1000;
+        console.log(req.sessionOptions.maxAge)
+        req.session.username = 'admin';
+    } else {
+        req.sessionOptions.maxAge = 15*60*1000;
+        console.log(req.sessionOptions.maxAge)
+        req.session.username = 'admin';
+    }
+});
 app.use(express.static(
     path.resolve(__dirname, 'public'),
 ))
@@ -42,8 +52,6 @@ app.get('/', (req, res) => {
 })
 
 app.get('/auth', (req, res) => {
-    // console.log(req.session)
-    // console.log(req.sessionOptions)
     if(req.session.username){
         res.redirect('/main')
     } else {
@@ -53,7 +61,7 @@ app.get('/auth', (req, res) => {
 
 app.get('/main', async (req, res) => {
     console.log(req.session)
-    console.log(req.sessionOptions)
+    console.log(req.sessionOptions.maxAge)
     const tasks = await Task.find();
     res.render('index', {tasks});
 })
@@ -84,15 +92,6 @@ app.post('/complete', async (req, res) => {
 app.post('/auth', async (req, res) => {
     const user = await User.findOne({name: req.body.login});
     if (req.body.login === user.name && chiferWork(req.body.password,'salt','encode') === user.password) {
-        if (req.body.memo === 'checked'){
-            req.sessionOptions.maxAge = 24*60*60*1000;
-            console.log(req.sessionOptions.maxAge)
-            req.session.username = 'admin';
-        } else {
-            req.sessionOptions.maxAge = 15*60*1000;
-            console.log(req.sessionOptions.maxAge)
-            req.session.username = 'admin';
-        }
         res.redirect('/main');
     } else {
         res.redirect('/auth');
