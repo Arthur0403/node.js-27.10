@@ -10,7 +10,6 @@ const connection = require(`./connector.js`)
 const Task = require('./models/task');
 const User = require('./models/user');
 
-
 const app = express();
 const port = 8080;
 const secret = 'JWT firts try';
@@ -35,45 +34,77 @@ function chiferWork(str, salt, type){
     }
 }
 
-app.get('/', (req, res) => {
-    fs.readFile('./auth.html', (err, data) => {
-        if (err) { throw err}
-        res.status(200).contentType('html').send(data);
-    });   
-})
+function identifyUser(req, res, next) {
+    if(req.headers.authorization) {
+        const [, token] = req.headers.authorization.split(' ');
+        jwt.verify(token, secret, function(err, decoded) {
+            if(err) {
+                return res.status(403).json({ error: 'Wrong token' });
+            }
+    
+        req.user = decoded;
+        next();
+        });
+    } else {
+        res.status(403).json({ error: 'No token present' });
+    }
+}
 
 app.post('/auth', async (req, res) => {
     const {username, password} = req.body;
-    const user = await User.findOne({name: req.body.login})
+    const user = await User.findOne({name: username})
+    if (user){
+        if (username === user.name && chiferWork(password,'salt','encode') === user.password) {
+            const token = jwt.sign({
+                id: user._id,
+                username: user.name,
+            }, secret);
+            res.json({token});
+        } else {
+            res.json({error: 'Wrong credentials'})
+        }
+    } else {
+        res.json({error: `Can't find user ${username}`})
+    }
+});
+
+app.all('/users', identifyUser);
+app.all('/users*', identifyUser);
+
+app.get('/users', async (req, res) => {
+    const users = await User.find();
+    res.json(users);
+});
+
+app.get('/users/:id', async (req, res) => {
+    const user = await User.findById(req.params.id);
+    res.json(user);
+});
+
+app.post('/users', async (req, res) => {
+    let user = new User(req.body);
+    user = await User.save();
+
+    res.json(user);
+});
+
+app.put('/user/:id', async (req, res) => {
+    const user = await User.update({ _id: req.params.id }, req.body);
+
+    res.json(user);
 })
 
-// app.get(`/`, async (req, res) => {
-//     const tasks = await todoList.find();
-//     res.render(`index`, {tasks});
-// })
+app.patch('/user/:id', async (req, res) => {
+    const user = await User.update({ _id: req.params.id }, { $set: req.body });
 
-// app.post(`/`, async (req, res) => {
-//     let listitem = new todoList({task: req.body.newTask, completed: false});
-//     listitem = await listitem.save();
-//     const tasks = await todoList.find();
-//     res.render(`index`, {tasks});
-// })
+    res.json(user);
+});
 
-// app.post(`/delete`, async(req, res) => {
-//     const rec = await todoList.findByIdAndRemove(req.body.delete, () => {
-//         console.log(`Запись ${req.body.delete} была удалена`);
-//     })
-//     const tasks = await todoList.find();
-//     res.render(`index`, {tasks});
-// })
+app.delete('/user/:id', async (req, res) => {
+    const user = await User.remove({ _id: req.params.id });
 
-// app.post(`/complete`, async(req, res) => {
-//     const rec = await todoList.findByIdAndUpdate(req.body.complete, {completed: true} , () => {
-//         console.log(`Запись ${req.body.complete} была модифицирована`);
-//     })
-//     const tasks = await todoList.find();
-//     res.render(`index`, {tasks});
-// })
+    res.json(user);
+});
 
 app.listen(port, () => {
     console.log(`Server has been started. Listening port ${port}`);
