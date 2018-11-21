@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ToDo</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+	<div class="container bg-info">
+		<h2>Мой список задач</h2>
+
+		<div class="list-group">
+			{{#each docs as |val key|}}
+				<div class="list-group-item bg-light">
+					<div class="list-group-item bg-warning mb-2">
+						<span class="text-dark mr-4">{{key}}</span>
+						<span class="text-success mr-4">{{val.name}}</span>
+						<span class="text-info">{{val.completed}}</span>
+					</div>
+					<div class="buttons d-flex">
+						<form class="d-flex" action="/change/{{val._id}}" method="post">
+							<input type="text" class="form-control" name="name" id="change">
+							<button type="submit" class="btn btn-outline-secondary change mr-2" value="{{val._id}}"
+											name="change">Изменить
+							</button>
+						</form>
+						<form action="/complete/{{val._id}}" method="post">
+							<button type="submit" class="btn btn-outline-success complete mr-2" value="{{val._id}}" name="complete">
+								Завершить</button>
+						</form>
+						<form action="/delete/{{val._id}}" method="post">
+							<button type="submit" class="btn btn-outline-danger delete" value="{{val._id}}" name="delete">Удалить
+							</button>
+						</form>
+					</div>
+				</div>
+			{{/each}}
+		</div>
+
+		<form action="/add" method="post">
+			<div class="form-group mt-4">
+				<label for="task">Название новой задачи</label>
+				<input type="text" class="form-control" name="name" id="task">
+				<button type="submit" class="btn btn-outline-dark add mt-2">Добавить</button>
+			</div>
+		</form>
+
+	</div>
+</body>
+</html>

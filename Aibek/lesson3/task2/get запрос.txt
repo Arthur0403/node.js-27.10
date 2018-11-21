@@ -1,0 +1,1 @@
+https://translate.yandex.net/api/v1.5/tr.json/translate?lang=ru-en&key=trnsl.1.1.20181108T091223Z.48356d72be3ef058.dea90a0d915b56e74cf9bd4105f7f0d0a770c003&text=привет

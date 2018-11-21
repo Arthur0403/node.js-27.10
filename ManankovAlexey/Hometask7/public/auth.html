@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Authentication page</title>
+</head>
+<body>
+    <div class="container">
+        <form action="/auth" method="POST">
+            <div class="form-group">
+                <label for="exampleInputLogin">Логин:</label>
+                <input type="text" class="form-control" id="username" placeholder="Введите ваш логин" name="login">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Пароль:</label>
+                <input type="password" class="form-control" id="password" placeholder="Введите ваш пароль" name="password">
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="memo" value="checked">
+                <label class="form-check-label" for="exampleCheck1">Запомнить меня</label>
+            </div>
+            <button type="button" class="btn btn-primary" id="login">Войти</button>
+        </form>
+    </div>
+    <script src="./js/script.js"></script>
+</body>
+</html>
