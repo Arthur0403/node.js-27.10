@@ -8,10 +8,8 @@ const path = require('path');
 const User = require('./models/user');
 const Todo = require('./models/todo');
 
-mongoose.connect('mongodb://localhost/todo');
+mongoose.connect('mongodb://localhost/todo', { useNewUrlParser: true });
 const app = express();
-
-
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -24,40 +22,36 @@ app.use(express.static
 //user
 
 function identifyUser(req, res, next) {
-  if(req.headers.authorization) {
-    const [, token] = req.headers.authorization.split(' ');
-
-    jwt.verify(token, 'secret', function(err, decoded) {
-      if(err) {
-        return res.status(403).json({ error: 'Wrong token' });
-      }
-
-      req.user = decoded;
-      next();
-    });
-  } else {
-    res.status(403).json({ error: 'No token present' });
-  }
+  if(req.headers.authorization) {	 
+    const [, token] = req.headers.authorization.split(' ');	
+     jwt.verify(token, 'secret', function(err, decoded) {	
+      if(err) {	
+        return res.status(403).json({ error: 'Wrong token' });	
+      }	
+      req.user = decoded;	
+      next();	
+    });	
+  } else {	
+    res.status(403).json({ error: 'No token present' });	
+  }	
 }
-
-app.post('/auth', (req, res) => {
-  const { username, password } = req.body;
-
-  if(username === 'admin' && password === 'admin') {
-    const token = jwt.sign({
-      id: 1,
-      username: 'admin',
-      fullName: 'Vasya Pupkin',
-    }, 'secret');
-
-    res.json({ token });
-  } else {
-    res.json({ error: 'Wrong credentials' });
-  }
+	
+ app.post('/auth', async (req, res) => {	
+  const { username, password } = req.body;	
+  const user = await User.findOne({ username, password })	
+  if (user) {	
+      const { _id: id, username, displayName } = user;	
+      res.json({	
+          access_token: jwt.sign({ id, username, displayName }, 'secret'),	
+      })	
+  } else {	
+      res.json({ code: 1, message: 'Wrong credentials' });	
+  }	
 });
 
-app.all('/todo', identifyUser);
-app.all('/todos*', identifyUser);
+app.all('/post', identifyUser);
+app.all('/posts*', identifyUser);
+
 
 
 // Todo 
