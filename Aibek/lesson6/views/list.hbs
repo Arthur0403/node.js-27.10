@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Form</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+	{{#each cards}}
+	<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title" >{{this.name}}</h5>
+    <p class="card-text">{{this.content}}</p>
+    <p class="card-text">{{this.date}}</p>
+    <p class="card-text">Completed:{{this.completed}}</p>
+    <button type="button" class="btn btn-outline-primary" value={{this.content}}>Completed</button>
+    <button type="button" class="btn btn-outline-danger" value={{this.content}}>Delete</button>
+  </div>
+</div>
+{{/each}}
+<script>
+	$(document).ready(function(){
+		$('.btn-outline-primary').click(function(){
+		var a = $(this).val();
+		console.log(a);
+		$.post('/tasks/update', {
+			content: a
+		})
+	})
+		$('.btn-outline-danger').click(function(){
+		var b = $(this).val();
+		console.log(b);
+		$.post('/tasks/delete', {
+			content: b
+		})
+	})
+	})
+</script>
+</body>
+</html>
