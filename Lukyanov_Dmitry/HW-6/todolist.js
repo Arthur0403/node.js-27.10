@@ -132,7 +132,7 @@ app.post('/del-todo', (req, res) => {
 });
 
 app.post('/compl-todo',(req, res) => {
-    const rec = Todo.findByIdAndUpdate(req.body.edit, {edit: true}, () => { 
+    const rec = Todo.findByIdAndUpdate(req.body.completed, () => { 
 })
 res.redirect('/list');
 })

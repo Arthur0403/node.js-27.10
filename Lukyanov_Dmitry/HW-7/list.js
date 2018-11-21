@@ -22,7 +22,6 @@ function identifyUser(req, res, next) {
       if(err) {
         return res.status(403).json({ error: 'Wrong token' });
       }
-
       req.user = decoded;
       next();
     });
@@ -30,7 +29,6 @@ function identifyUser(req, res, next) {
     res.status(403).json({ error: 'No token present' });
   }
 }
-
 
 
 app.post('/auth', async (req, res) => {

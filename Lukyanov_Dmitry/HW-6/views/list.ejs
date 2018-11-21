@@ -30,7 +30,7 @@
                             <button name="id" value="<%= allList[i].id %>" type="submit" class="btn btn-primary mb-2">-</button>
                         </form>
                         <form action="/compl-todo" method="POST">
-                                <button type="submit" class="btn btn-primary mb-2" value=" <%= allList[i].id %>" name="edit">Выполненно</button>
+                                <button type="submit" class="btn btn-primary mb-2" value=" <%= allList[i].id %>" name="completed">Выполненно</button>
                             </form>
                     </li>
                     <% }
