@@ -60,7 +60,7 @@ app.all('/todo', identifyUser);
 app.all('/todos*', identifyUser);
 
 
-// Todo //
+// Todo 
 
 app.get('/todos', async (req, res) => {
   const todos = await Todo.find();
