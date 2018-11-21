@@ -1,10 +1,10 @@
-let records = [
+const records = [
  { id: 1, username: 'admin', password: 'admin', displayName: 'Дмитрий', emails: [ { value: 'ld@dzertv.ru' } ] }
 ];
 
 exports.findById = function(id, cb) {
   process.nextTick(function() {
-    let idx = id - 1;
+    const idx = id - 1;
     if (records[idx]) {
       cb(null, records[idx]);
     } else {
@@ -15,12 +15,7 @@ exports.findById = function(id, cb) {
 
 exports.findByUsername = function(username, cb) {
   process.nextTick(function() {
-    for (let i = 0, len = records.length; i < len; i++) {
-      let record = records[i];
-      if (record.username === username) {
-        return cb(null, record);
-      }
-    }
-    return cb(null, null);
+    const user = records.find((record) => record.username === username);
+    return cb(null, user);
   });
 }

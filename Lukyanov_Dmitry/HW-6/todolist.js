@@ -98,14 +98,13 @@ app.post('/login',
   }),
   function (req, res) {
     res.redirect('/list');
-
   });
 
 app.get('/profile',
   require('connect-ensure-login').ensureLoggedIn(),
   function (req, res) {
     res.render('profile', {
-      user: req.user
+      user: req.user,
     });
   });
 
@@ -120,7 +119,7 @@ app.post('/add-todo', (req, res) => {
   const addTodo = new todo({
     name: req.body.item,
   });
-  Todo.create(addTodo, (err, todo) => {
+  todo.create(addTodo, (err, todo) => {
     if (err) console.log(err);
   });
   res.redirect('/list');
@@ -135,8 +134,7 @@ app.post('/del-todo', (req, res) => {
 });
 
 app.post('/edit-todo',(req, res) => {
-    const rec = Todo.findByIdAndUpdate(req.body.edit, {edit: true} , () => {
-   
+    const rec = Todo.findByIdAndUpdate(req.body.edit, {edit: true}, () => { 
 })
 res.redirect('/list');
 })

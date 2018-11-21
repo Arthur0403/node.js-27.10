@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const todoSchema = new mongoose.Schema({
   name: String,
-  edit: Boolean,
+  completed: {type: Boolean, default: false},
 });
 
-module.exports = mongoose.model('todo', todoSchema);
+module.exports = mongoose.model('Todo', todoSchema);
 
