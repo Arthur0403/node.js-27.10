@@ -49,6 +49,7 @@ app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({
   extended: true
 }));
+
 app.use(require('express-session')({
   secret: 'keyboard cat',
   resave: false,
@@ -56,11 +57,8 @@ app.use(require('express-session')({
 }));
 app.use(express.static(path.join(__dirname, 'models')));
 
-
 app.use(passport.initialize());
 app.use(passport.session());
-
-
 
 app.get('/',
   function (req, res) {
@@ -116,10 +114,10 @@ app.get('/logout',
 
 
 app.post('/add-todo', (req, res) => {
-  const addTodo = new todo({
+  const addTodo = new Todo({
     name: req.body.item,
   });
-  todo.create(addTodo, (err, todo) => {
+  Todo.create(addTodo, (err, todo) => {
     if (err) console.log(err);
   });
   res.redirect('/list');
@@ -133,12 +131,11 @@ app.post('/del-todo', (req, res) => {
   res.redirect('/list');
 });
 
-app.post('/edit-todo',(req, res) => {
+app.post('/compl-todo',(req, res) => {
     const rec = Todo.findByIdAndUpdate(req.body.edit, {edit: true}, () => { 
 })
 res.redirect('/list');
 })
-
 
 app.listen(3000, function () {
   console.log('Server started port 3000');
