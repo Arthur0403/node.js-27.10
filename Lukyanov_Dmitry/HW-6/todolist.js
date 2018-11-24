@@ -5,6 +5,17 @@ const mongoose = require('mongoose');
 const path = require('path');
 const Strategy = require('passport-local').Strategy;
 var db = require('./db');
+app.use(require('morgan')('combined'));
+app.use(require('cookie-parser')());
+app.use(require('body-parser').urlencoded({
+  extended: true
+}));
+
+app.use(require('express-session')({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
+}));
 const Todo = require('./models/todo');
 
 
@@ -44,17 +55,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 
-app.use(require('morgan')('combined'));
-app.use(require('cookie-parser')());
-app.use(require('body-parser').urlencoded({
-  extended: true
-}));
 
-app.use(require('express-session')({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: false
-}));
 app.use(express.static(path.join(__dirname, 'models')));
 
 app.use(passport.initialize());
