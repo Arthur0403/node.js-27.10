@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <script src="/socket.io/socket.io.js"></script>
+   <script>
+    window.onload = function() {
+
+      var $name = document.getElementById('name');
+      var $send = document.getElementById('send');
+     
+      
+      var $todoList = document.getElementById('todoList');
+      var socket = io.connect('http://localhost:3000');
+    
+     
+      socket.on('todo', (todo) => {
+              var li = document.createElement('li');
+              li.innerText = ` ${todo.name}`;
+        $todoList.appendChild(li);
+      });
+    
+    
+      $send.addEventListener('click', (event) => {
+        socket.emit('todo', {
+          name: $name.value,
+          
+        });
+        event.preventDefault();
+      });   
+    
+
+    }
+  </script>
+
+  </head>
+  <body>
+    <h3>Список задач</h3>
+
+    <ol id="todoList"></ol>
+    <h3>Добавить задачу</h3>
+    <input type="text" placeholder="добавить задание" name="name" id="name"/>
+    <button id="send">Добавить</button>
+  </body>
+</html>
