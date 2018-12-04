@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use(express.static
-  (path.join(__dirname, 'models')
+  (path.join(__dirname, 'models'),
 ));
 
 
@@ -43,7 +43,7 @@ function identifyUser(req, res, next) {
       const { _id: id, username, displayName } = user;	
       res.json({	
           access_token: jwt.sign({ id, username, displayName }, 'secret'),	
-      })	
+      });	
   } else {	
       res.json({ code: 1, message: 'Wrong credentials' });	
   }	
@@ -86,7 +86,6 @@ app.delete('/todo/:id', async (req, res) => {
   const todo = await Todo.remove({ _id: req.params.id });
   res.json(todo);
 });
-
 
 app.listen(3000, function () {
   console.log('Server started port 3000');
